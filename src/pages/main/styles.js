@@ -3,175 +3,177 @@ import styled from 'styled-components'
 import LinearGradient from 'react-native-linear-gradient'
 
 // components
-export const Container = styled(LinearGradient).attrs({
-    colors: ['#228B22', '#deb887'],
-    start: { x: 0, y: 0 },
-    end: { x: 1, y: 1 },
-  })`
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-`;
+    // div principal
+    export const Container = styled(LinearGradient).attrs({
+        colors: ['#228B22', '#deb887'],
+        start: { x: 0, y: 0 },
+        end: { x: 1, y: 1 },
+    })`
+        flex: 1;
+        align-items: center;
+        align-self: auto;
+    `;
 
-export const Header = styled.View`
-    color: transparent;
-    padding: 5px;
-    margin: 5px;
-`;
+    // cabeçalho
+    export const Logo = styled.Text`
+        font-size: 20px;
+        margin-top:18px;
+        font-weight: bold;
+    `
 
-export const HeaderText = styled.Text`
-    font-size: 18px;
-    font-weight: bold;
-    margin: 5px 2px; 
-`;
+    export const Header = styled.View`
+        margin-top: 20px;
+        width: 80%;
+        height: 10%;
+        color: #fff;
+        flex-direction: row;
+        justify-content: space-between;
+    `
 
-export const Card = styled.View`
-    position: relative;
-    background-color: #e0f0e0;
-    border-width: 1;
-    border-color: #DDD;
-    border-radius: 5px;
-    padding: 20px;
-    margin: 20px;
-    margin-top: 5px;
-    margin-bottom: 2px;
-`;
+    export const Greetings = styled.Text`
+        font-size: 12px;
+        font-weight: bold;
+        font-style: italic;
+    `
 
-export const CardHeader = styled.View`
-    padding: 10px;
-    background-color: #a0f0a0;
-`;
+    export const LogoutButton = styled.TouchableOpacity`
+        justify-content: center;
+        align-items: center;
+    `
 
-export const CardTitle = styled.Text`
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 10px;
-`;
+    export const LogoutText = styled.Text`
+        font-size: 12px;
+        font-style: italic;
+    `
 
-export const CardContent = styled.View`
-    align-self: stretch;
-    margin-bottom: 10px;
-    font-size: 13px;
-`
+    // Lista de cards
+    export const Content = styled.ScrollView`
+        z-index: 1;
+        align-self: stretch;
+        background-color: #FFF;
+        padding: 2% 5%;
+    `
 
-export const Label = styled.Text`
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-    color: #111;
-`;
+    export const List = styled.FlatList.attrs({
+        showsVerticalScrollIndicator: false
+    })`
+        margin-top: 10px;
+    `
 
-export const CardFooter = styled.View`
-    padding: 15px;
-    background-color: #a0f0a0;
-`
+    export const ItemList = styled.View`
+        border-radius: 4px;
+        background: #eee;
+        margin-bottom: 15px;
+        padding: 5px;
+    `
 
-export const Date = styled.Text`
-    text-align: right;
-    font-size: 10px;
-    color: #555;
-`
+    export const ItemView = styled.View`
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
 
-export const ButtonField = styled.View`
-    flex-direction: row;
-    position: relative;
-    align-items: center;
-    justify-content: space-between;
-    margin-left: 20px;
-    margin-right: 20px;
-`
+    `
 
-export const SaveButton = styled.TouchableOpacity`
-    height: 42px;
-    border-radius: 5px;
-    border-width: 2px;
-    border-color: #260;
-    background-color: #260;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-`;
+    export const ItemLabel = styled.Text`
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+    `
 
-export const SendButton = styled.TouchableOpacity`
-    height: 42px;
-    border-radius: 5px;
-    border-width: 2px;
-    border-color: #260;
-    background-color: #260;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-`;
+    export const ItemText = styled.Text`
+        font-size: 14px;
+        color: #999;
+    `
 
-export const AltButton = styled.TouchableOpacity`
-    height: 42px;
-    border-radius: 5px;
-    border-width: 2px;
-    border-color: #DA7825;
-    background-color: #DA7825;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-`;
+    // Botão para adicionar Cards
+    export const AddView = styled.View`
+        position: absolute;
+        top: 90%;
+        left:80%;
+        z-index: 2;
+        width: 10%;
+        justify-content: center;
+        align-items: center;
+        background-color: #ccc;
+        border-radius: 15px;
+    `
 
-export const CancelButton = styled.TouchableOpacity`
-    height: 42px;
-    border-radius: 5px;
-    border-width: 2px;
-    border-color: #EA0425;
-    background-color: #EA0425;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-`;
+    export const AddButton = styled.TouchableOpacity`
+        border-radius: 15px;
+        align-items: center;
+        justify-content: center;
+    `
 
-export const ButtonText = styled.Text`
-    color: #FFF;
-    font-weight: bold;
-    font-size: 16px;
-    text-align: center;
-    padding-left: 10px;
-    padding-right: 10px;
-`
+    // Container para adicionar os cards
+    export const AddContainer = styled.View`
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+    `
 
-export const Input = styled.Text`
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 5px;
-    border-color: #666;
-    border-width: 0.5px;
-    background-color: #fff;
-    align-self: stretch;
-    text-align: center;
-    font-size: 13px;
-`
+    export const AddCard = styled.View`
+        background-color: #fff;
+        width: 80%;
+        align-self: auto;
+        border-radius: 5px;
+        justify-content: center;
+        align-items: center;
+    `
 
-export const Select = styled.Picker`
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 5px;
-    border-color: #666;
-    border-width: 0.5px;
-    background-color: #fff;
-    align-self: stretch;
-    text-align: center;
-    font-size: 13px;
-`
+    export const AddCardHeader = styled.View`
+        background-color: #ddd;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        align-self: stretch;
+        border-radius: 5px;
+        padding: 5px;
+    `
 
-export const ErrorMessage = styled.Text`
-    text-align: center;
-    color: #ce2029;
-    font-size: 16px;
-    margin-bottom: 15px;
-    margin-left: 20px;
-    margin-right: 20px;
-`
+    export const AddCardContent = styled.View`
+        background-color: transparent;
+        justify-content: center;
+        align-items: center;
+        align-self: stretch;
+        margin-left: 3px;
+        margin-right: 3px;
+        margin-bottom: 5px;
+    `
 
-export const SucessMessage = styled.Text`
-    text-align: center;
-    color: #325A11;
-    font-size: 16px;
-    margin-bottom: 15px;
-    margin-left: 20px;
-    margin-right: 20px;
-`
+    export const AddCardLabel = styled.Text`
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+    `
+
+    export const AddInput = styled.TextInput`
+        padding: 5px;
+        border: solid 1px #777;
+        border-radius: 5px;
+        align-self: stretch;
+        align-items: center;
+        font-size: 13px;
+    `
+
+    export const AddCardSelect = styled.Picker`
+        padding: 5px;
+        border: solid 1px #777;
+        border-radius: 5px;
+        align-self: stretch;
+        align-items: center;
+        text-align: right;
+    `
+
+    export const AddCardFooter = styled.View`
+        padding: 5px;
+        margin-top: 5px;
+        align-items: center;
+        justify-content: center;
+        align-self: stretch;
+        background-color: #ddd;
+    `

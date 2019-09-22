@@ -45,19 +45,27 @@ export default function signIn({ navigation }) {
             setError('Preencha o Login e a Senha!')
         } else {
             try{
+                console.log('teste')
                 // recuperação dos dados
                 const response = await api.post('/auth', {
                     login,
                     senha
                 })
+
+                if(!response) {
+                    setError('Dados Inválidos')
+                }
+
                 const { token, user } = response.data
 
                 // guarda do token no AsyncStorage
                 await AsyncStorage.setItem('smartGreen:token', token)
+                await AsyncStorage.setItem('user', user.nome)
 
                 // redirecionamento para a página Main
                 navigation.navigate('main')
             } catch(err) {
+                console.log(err)
                 setError('Erro ao recuperar os usuarios')
             }
         }

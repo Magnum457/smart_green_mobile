@@ -10,6 +10,7 @@ import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
+import io.realm.react.RealmReactPackage;
 
 import java.util.List;
 
