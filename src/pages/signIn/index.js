@@ -18,11 +18,12 @@ import {
 
 // services
 import api from '../../services/api'
+import firebase from 'react-native-firebase'
 
 // functional component
 export default function signIn({ navigation }) {
     // state
-    const [login, setLogin] = useState('')
+    const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
     const [error, setError] = useState('')
 
@@ -41,32 +42,50 @@ export default function signIn({ navigation }) {
 
     // handlers
     async function handleSignIn(){
-        if (login.length === 0 || senha.length === 0) {
-            setError('Preencha o Login e a Senha!')
+        if (email.length === 0 || senha.length === 0) {
+            setError('Preencha o Email e a Senha!')
         } else {
             try{
-                console.log('teste')
-                // recuperação dos dados
-                const response = await api.post('/auth', {
-                    login,
-                    senha
-                })
+                // recuperação dos dados pela API Local
+                    // const response = await api.post('/auth', {
+                    //     login,
+                    //     senha
+                    // })
 
-                if(!response) {
-                    setError('Dados Inválidos')
-                }
+                    // if(!response) {
+                    //     setError('Dados Inválidos')
+                    // }
 
-                const { token, user } = response.data
+                    // const { token, user } = response.data
 
+                // recuperação dos dados pela API do Firebase
+                    const response = await firebase.auth()
+                                             .signInWithEmailAndPassword(email, senha)
+
+                    if (response){
+                        console.log(response)
+
+                        const email = response.user._user.email
+                        const token = response.user._user.uid
+
+                        await AsyncStorage.setItem('smartGreen:token', token)
+                        await AsyncStorage.setItem('user', email)
+
+                        navigation.navigate('main', { email })
+                    } else {
+                        setError('Erro ao recuperar os dados')
+                    }
+                        
+
+                    
                 // guarda do token no AsyncStorage
-                await AsyncStorage.setItem('smartGreen:token', token)
-                await AsyncStorage.setItem('user', user.nome)
+                //await AsyncStorage.setItem('smartGreen:token', token)
+                //await AsyncStorage.setItem('user', user.nome)
 
                 // redirecionamento para a página Main
-                navigation.navigate('main')
+                //navigation.navigate('main')
             } catch(err) {
-                console.log(err)
-                setError('Erro ao recuperar os usuarios')
+                setError(err.message)
             }
         }
     }
@@ -80,10 +99,10 @@ export default function signIn({ navigation }) {
         <Container>
             <StatusBar hidden />
             <Input 
-                placeholder="Digite seu Login"
+                placeholder="Digite o seu email"
                 placeholderTextColor='#999'
-                value={login}
-                onChangeText={setLogin}
+                value={email}
+                onChangeText={setEmail}
                 autoCorrect={false}
                 autoCapitalize="none"
             />

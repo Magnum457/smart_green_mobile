@@ -19,13 +19,13 @@ import {
 
 // services
 import api from '../../services/api'
+import firebase from 'react-native-firebase'
 
 // functional component
 export default function signUp({ navigation }) {
     // state
-    const [login, setLogin] = useState('')
+    const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
-    const [nome, setNome] = useState('')
     const [error, setError] = useState('')
     const [sucess, setSucess] = useState('')
 
@@ -48,23 +48,29 @@ export default function signUp({ navigation }) {
     }
 
     async function handleSignUp() {
-        if(login.length === 0 || senha.length === 0 || nome.length === 0) {
+        if(email.length === 0 || senha.length === 0) {
             setError('Preencha todos os dados pedidos')
         } else {
             try{
-                // envio dos dados
-                const response = await api.post('/users', {
-                    login,
-                    senha,
-                    email
-                })
-                const { user } = response.data
+                // cadastro na API local
+                    // const response = await api.post('/users', {
+                    //     login,
+                    //     senha,
+                    //     email
+                    // })
+                    // const { user } = response.data
 
-                if(user) {
-                    setSucess(`O usuario ${user.nome} foi inserido como sucesso`)
-                } else {
-                    setError('Erro ao inserir')
-                }
+                    // if(user) {
+                    //     setSucess(`O usuario ${user.email} foi inserido como sucesso`)
+                    // } else {
+                    //     setError('Erro ao inserir')
+                    // }
+
+                // cadastro na API do Firebase
+                    const response = await firebase.auth()
+                                             .createUserWithEmailAndPassword(email, senha)
+
+                    {  }
 
             } catch(err) {
                 setError('Erro ao enviar os dados')
@@ -78,10 +84,10 @@ export default function signUp({ navigation }) {
             <StatusBar hidden />
             { sucess.length !== 0 && ( <SucessMessage>{ sucess }</SucessMessage> ) }
             <Input 
-                placeholder="Digite o seu Login"
+                placeholder="Digite o seu email"
                 placeholderTextColor='#999'
-                value={login}
-                onChangeText={setLogin}
+                value={email}
+                onChangeText={setEmail}
                 autoCorrect={false}
                 autoCapitalize="none"
             />
@@ -90,14 +96,6 @@ export default function signUp({ navigation }) {
                 placeholderTextColor='#999'
                 value={senha}
                 onChangeText={setSenha}
-                autoCorrect={false}
-                autoCapitalize="none"
-            />
-            <Input 
-                placeholder="Digite o seu nome"
-                placeholderTextColor='#999'
-                value={nome}
-                onChangeText={setNome}
                 autoCorrect={false}
                 autoCapitalize="none"
             />
