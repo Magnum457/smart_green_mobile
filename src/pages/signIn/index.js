@@ -75,9 +75,7 @@ export default function signIn({ navigation }) {
                     } else {
                         setError('Erro ao recuperar os dados')
                     }
-                        
-
-                    
+ 
                 // guarda do token no AsyncStorage
                 //await AsyncStorage.setItem('smartGreen:token', token)
                 //await AsyncStorage.setItem('user', user.nome)
