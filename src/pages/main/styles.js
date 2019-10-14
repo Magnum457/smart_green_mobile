@@ -74,6 +74,18 @@ import LinearGradient from 'react-native-linear-gradient'
 
     `
 
+    export const ItemHeader = styled.View`
+        justify-content: center;
+        align-items: center;
+        background-color: #30a970;
+        margin-bottom: 10px;
+    `
+
+    export const ItemHeaderText = styled.Text`
+        font-size: 16px;
+        font-weight: bold;
+    `
+
     export const ItemLabel = styled.Text`
         font-size: 14px;
         font-weight: bold;
@@ -83,6 +95,30 @@ import LinearGradient from 'react-native-linear-gradient'
     export const ItemText = styled.Text`
         font-size: 14px;
         color: #999;
+    `
+
+    export const ItemFooter = styled.View`
+        align-items: center;
+        justify-content: flex-end;
+        flex-direction: row;
+        padding-left: 25px;
+        padding-right: 25px;
+        margin-top: 10px;
+    `
+    export const SendButton = styled.TouchableOpacity`
+        background-color: #30a970;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        margin-right: 2px;
+    `
+
+    export const DeleteButton = styled.TouchableOpacity`
+        background-color: #ad4035;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        margin-left: 2px;
     `
 
     // Botão para adicionar Cards
@@ -176,4 +212,55 @@ import LinearGradient from 'react-native-linear-gradient'
         justify-content: center;
         align-self: stretch;
         background-color: #ddd;
+    `
+
+    // modal para enviar o card
+    export const SendContainer = styled.View`
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+    `
+
+    // modal para deletar o card
+    export const DeleteContainer = styled.View`
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        align-self: stretch;
+    `
+
+    export const ContainerContent = styled.View`
+        background-color: #fff;
+        width: 80%;
+        align-self: auto;
+        border-radius: 5px;
+        padding: 15px;
+        justify-content: space-between;
+        align-items: center;
+    `
+
+    export const SimButton = styled.TouchableOpacity`
+        background-color: #30a970;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        border-radius: 5px;
+    `
+
+    export const NaoButton = styled.TouchableOpacity`
+        background-color: #ad4035;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        border-radius: 5px;
     `

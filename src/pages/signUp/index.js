@@ -73,7 +73,7 @@ export default function signUp({ navigation }) {
                     {  }
 
             } catch(err) {
-                setError('Erro ao enviar os dados')
+                setError(err.message)
             }
         }
     }
@@ -85,7 +85,7 @@ export default function signUp({ navigation }) {
             { sucess.length !== 0 && ( <SucessMessage>{ sucess }</SucessMessage> ) }
             <Input 
                 placeholder="Digite o seu email"
-                placeholderTextColor='#999'
+                placeholderTextColor='#777'
                 value={email}
                 onChangeText={setEmail}
                 autoCorrect={false}

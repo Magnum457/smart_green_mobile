@@ -27,7 +27,17 @@ import {
     ItemList,
     ItemText,
     ItemView,
-    ItemLabel
+    ItemHeader,
+    ItemHeaderText,
+    ItemLabel,
+    ItemFooter,
+    SendButton,
+    DeleteButton,
+    SendContainer,
+    DeleteContainer,
+    ContainerContent,
+    SimButton,
+    NaoButton
 } from './styles'
 
 // services
@@ -44,9 +54,12 @@ export default function main({ navigation }) {
     const [ umidade, setUmidade ] = useState('')
     const [ user, setUser ] = useState('')
     const [ addCard, setAddCard ] = useState(false)
+    const [ sendCard, setSendCard ] = useState(false)
+    const [ deleteCard, setDeleteCard ] = useState(false)
     const [ sucessMessage, setSucess ] = useState('')
     const [ errorMessage, setError ] = useState('')
     const [ data, setData] = useState([])
+    const [ item, setItem ] = useState([])
 
     // recupera os cards
     async function loadData() {
@@ -93,9 +106,22 @@ export default function main({ navigation }) {
     function handleAddCard() {
         setAddCard(true)
     }
+
+    function handleSendCard({ item }) {
+        setItem(item)
+        setSendCard(true)
+    }
+
+    function handleDeleteCard({ item }) {
+        setItem(item)
+        setDeleteCard(true)
+    }
     
     function handleCloseCard() {
         setAddCard(false)
+        setDeleteCard(false)
+        setSendCard(false)
+        setItem([])
     }
 
     async function handleCreateCard() {
@@ -105,9 +131,8 @@ export default function main({ navigation }) {
                 return errorMessage
             }
 
-
             const data = {
-                id: Math.random()*10,
+                id: Math.random()*1000,
                 fazenda: fazenda,
                 campo: campo,
                 ponto: ponto,
@@ -130,9 +155,33 @@ export default function main({ navigation }) {
             return data
 
         } catch (err) {
-            setError(err)
+            setError(err.message)
         }
-    } 
+    }
+
+    async function handleDropCard() {
+        try{
+            const realm = await getRealm()
+
+            const datas = realm.objects('Soil')
+
+            let card = datas.filtered(`campo = "${item.campo}"`)
+
+            setError(card.id)
+
+            setItem([])
+        } catch(err) {
+            setError(err.message)
+        }
+    }
+
+    async function handleSendingCard() {
+        try{
+            console.log(item)
+        } catch(err) {
+            setError(err.message)
+        }
+    }
 
     // render
     return (
@@ -159,9 +208,9 @@ export default function main({ navigation }) {
                                 keyExtractor={item => String(item.id)}
                                 renderItem={({ item }) => (
                                     <ItemList data={item}>
-                                        <ItemView>
-                                            <ItemLabel>Dados</ItemLabel>
-                                        </ItemView>
+                                        <ItemHeader>
+                                            <ItemHeaderText>Dados</ItemHeaderText>
+                                        </ItemHeader>
                                         <ItemView>
                                             <ItemLabel>Fazenda:</ItemLabel>
                                             <ItemText>{item.fazenda}</ItemText>
@@ -182,6 +231,14 @@ export default function main({ navigation }) {
                                             <ItemLabel>Umidade:</ItemLabel>
                                             <ItemText>{item.umidade}</ItemText>
                                         </ItemView>
+                                        <ItemFooter>
+                                            <SendButton onPress={() => handleSendCard({item})}>
+                                                <Icon name="eject" size={30} />
+                                            </SendButton>
+                                            <DeleteButton onPress={() => handleDeleteCard({item})}>
+                                                <Icon name="delete" size={30} />
+                                            </DeleteButton>
+                                        </ItemFooter>
                                     </ItemList>
                                   )}
                             />
@@ -261,6 +318,39 @@ export default function main({ navigation }) {
    
                         </AddContainer>
                     )
+                }
+
+                {/* modal de enviar os dados */}
+                {
+                   sendCard && (
+                   <SendContainer>
+                       <ContainerContent>
+                        <Text>Deseja enviar este card?</Text>
+                        <SimButton>
+                            <Text>Sim</Text>
+                        </SimButton>
+                        <NaoButton onPress={handleCloseCard}>
+                            <Text>Não</Text>
+                        </NaoButton>
+                        </ContainerContent>
+                    </SendContainer>)
+                }
+
+                {/* modal de deletar os dados */}
+                {
+                   deleteCard && (
+                   <DeleteContainer>
+                       <ContainerContent>
+                        <Text>Deseja deletar este card?</Text>
+                        <SimButton onPress={handleDropCard}>
+                            <Text>Sim</Text>
+                        </SimButton>
+                        <NaoButton onPress={handleCloseCard}>
+                            <Text>Não</Text>
+                        </NaoButton>
+                        { (errorMessage.length !== 0 ) && (<Text> {errorMessage} </Text>) }
+                        </ContainerContent>
+                    </DeleteContainer>)
                 }
         </Container>
     )
